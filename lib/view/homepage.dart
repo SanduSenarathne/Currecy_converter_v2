@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:get/get.dart';
-import 'package:currency_converter_v2/controller/controllers.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
   final TextEditingController usdController = TextEditingController();
   final TextEditingController slrController = TextEditingController();
+
+  static ValueNotifier<String> selectedCurrency1 =
+      ValueNotifier('Select currency');
+  static ValueNotifier<String> selectedCurrency2 =
+      ValueNotifier('Select currency');
+
+  List<String> currencyList = [
+    'Select currency',
+    'United States Dollar',
+    'Sri Lankan Rupees',
+    'Chinese Yuan',
+    'South Korean Won'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +27,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.black,
         title: const Text(
-          'Currrency Converter',
+          'Currency Converter',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -29,7 +40,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'United States Dollar equals ',
+              '1 United States Dollar equals ',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -67,24 +78,41 @@ class HomePage extends StatelessWidget {
                         fillColor: Colors.black,
                       ),
                       style: TextStyle(color: Colors.white),
-                      onChanged: (value) {
+                      /*onChanged: (value) {
                         CurrencyConverter.convertToLKR(value);
                         slrController.text = CurrencyConverter.results.value;
-                      },
+                      },*/
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 1,
                   child: Container(
-                      color: Colors.black,
-                      child: Text(
-                        'United States Dollar',
-                        style: TextStyle(
-                          color: Colors.grey[300],
-                          backgroundColor: Colors.black,
-                        ),
-                      )),
+                    color: Colors.black,
+                    child: ValueListenableBuilder<String>(
+                      valueListenable: selectedCurrency1,
+                      builder: (context, value, child) {
+                        return DropdownButton<String>(
+                          value: value,
+                          dropdownColor: Colors.black,
+                          onChanged: (newValue1) {
+                            selectedCurrency1.value = newValue1!;
+                          },
+                          items: currencyList.map((currency) {
+                            return DropdownMenuItem<String>(
+                              value: currency,
+                              child: Text(
+                                currency,
+                                style: TextStyle(
+                                  color: Colors.grey[300],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -111,24 +139,42 @@ class HomePage extends StatelessWidget {
                         fillColor: Colors.black,
                       ),
                       style: TextStyle(color: Colors.white),
-                      onChanged: (value) {
+                      /*onChanged: (value) {
                         CurrencyConverter.convertToUSD(value);
                         usdController.text = CurrencyConverter.results.value;
-                      },
+                      },*/
                     ),
                   ),
                 ),
                 Expanded(
                   flex: 1,
                   child: Container(
-                      color: Colors.black,
-                      child: Text(
-                        'Sri Lankan Rupees',
-                        style: TextStyle(
-                          color: Colors.grey[300],
-                          backgroundColor: Colors.black,
-                        ),
-                      )),
+                    color: Colors.black,
+                    child: ValueListenableBuilder<String>(
+                      valueListenable: selectedCurrency2,
+                      builder: (context, value, child) {
+                        return DropdownButton<String>(
+                          value: value,
+                          dropdownColor: Colors.black,
+                          onChanged: (newValue2) {
+                            selectedCurrency2.value = newValue2!;
+                          },
+                          items: currencyList.map((currency) {
+                            return DropdownMenuItem<String>(
+                              value: currency,
+                              child: Text(
+                                currency,
+                                style: TextStyle(
+                                  color: Colors.grey[300],
+                                  backgroundColor: Colors.black,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),
