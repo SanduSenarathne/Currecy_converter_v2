@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:currency_converter_v2/controller/controllers.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final TextEditingController usdController = TextEditingController();
-  final TextEditingController slrController = TextEditingController();
+  final TextEditingController controller1 = TextEditingController();
+  final TextEditingController controller2 = TextEditingController();
 
   static ValueNotifier<String> selectedCurrency1 =
-      ValueNotifier('Select currency');
+      ValueNotifier('Sri Lankan Rupees');
   static ValueNotifier<String> selectedCurrency2 =
-      ValueNotifier('Select currency');
+      ValueNotifier('United States Dollar');
 
   List<String> currencyList = [
-    'Select currency',
     'United States Dollar',
     'Sri Lankan Rupees',
-    'Chinese Yuan',
-    'South Korean Won'
+    'Chinese Yuan'
   ];
 
   @override
@@ -63,7 +62,7 @@ class HomePage extends StatelessWidget {
                   child: Container(
                     color: Colors.black,
                     child: TextField(
-                      controller: usdController,
+                      controller: controller1,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
                           RegExp(r'^\d+\.?\d{0,2}?$'),
@@ -72,16 +71,20 @@ class HomePage extends StatelessWidget {
                       keyboardType:
                           TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
-                        hintText: 'Enter Value',
+                        hintText: 'Enter value',
                         hintStyle: TextStyle(color: Colors.grey[300]),
                         filled: true,
                         fillColor: Colors.black,
                       ),
                       style: TextStyle(color: Colors.white),
-                      /*onChanged: (value) {
-                        CurrencyConverter.convertToLKR(value);
-                        slrController.text = CurrencyConverter.results.value;
-                      },*/
+                      onChanged: (value) {
+                        CurrencyConverter.convertToCurencyText1(
+                          value,
+                          selectedCurrency2.value,
+                          selectedCurrency1.value,
+                        );
+                        controller2.text = CurrencyConverter.results.value;
+                      },
                     ),
                   ),
                 ),
@@ -124,7 +127,7 @@ class HomePage extends StatelessWidget {
                   child: Container(
                     color: Colors.black,
                     child: TextField(
-                      controller: slrController,
+                      controller: controller2,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
                           RegExp(r'^\d+\.?\d{0,2}?$'),
@@ -139,10 +142,14 @@ class HomePage extends StatelessWidget {
                         fillColor: Colors.black,
                       ),
                       style: TextStyle(color: Colors.white),
-                      /*onChanged: (value) {
-                        CurrencyConverter.convertToUSD(value);
-                        usdController.text = CurrencyConverter.results.value;
-                      },*/
+                      onChanged: (value) {
+                        CurrencyConverter.convertToCurencyText2(
+                          value,
+                          selectedCurrency1.value,
+                          selectedCurrency2.value,
+                        );
+                        controller1.text = CurrencyConverter.results.value;
+                      },
                     ),
                   ),
                 ),
