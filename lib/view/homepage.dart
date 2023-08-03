@@ -38,21 +38,37 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '1 United States Dollar equals ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
+            ValueListenableBuilder<String>(
+              valueListenable: selectedCurrency1,
+              builder: (context, value, child) {
+                return Text(
+                  '1 $value equals ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                );
+              },
             ),
             SizedBox(height: 8),
-            Text(
-              '330.37 Sri Lankan Rupee',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            ValueListenableBuilder<String>(
+              valueListenable: selectedCurrency2,
+              builder: (context, value, child) {
+                // Calculate the exchange rate using CurrencyConverter.exchangeRate()
+                String formattedExchangeRate = CurrencyConverter.exchangeRate(
+                  selectedCurrency1.value,
+                  selectedCurrency2.value,
+                );
+                //String formattedExchangeRate = exchangeRate;
+                return Text(
+                  '$formattedExchangeRate ${selectedCurrency2.value}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              },
             ),
             Container(height: 50),
             Row(
@@ -78,6 +94,7 @@ class HomePage extends StatelessWidget {
                       ),
                       style: TextStyle(color: Colors.white),
                       onChanged: (value) {
+                        controller2.clear();
                         CurrencyConverter.convertToCurencyText1(
                           value,
                           selectedCurrency2.value,
@@ -99,6 +116,8 @@ class HomePage extends StatelessWidget {
                           value: value,
                           dropdownColor: Colors.black,
                           onChanged: (newValue1) {
+                            controller1.clear();
+                            controller2.clear();
                             selectedCurrency1.value = newValue1!;
                           },
                           items: currencyList.map((currency) {
@@ -143,6 +162,7 @@ class HomePage extends StatelessWidget {
                       ),
                       style: TextStyle(color: Colors.white),
                       onChanged: (value) {
+                        controller1.clear();
                         CurrencyConverter.convertToCurencyText2(
                           value,
                           selectedCurrency1.value,
@@ -164,6 +184,8 @@ class HomePage extends StatelessWidget {
                           value: value,
                           dropdownColor: Colors.black,
                           onChanged: (newValue2) {
+                            controller1.clear();
+                            controller2.clear();
                             selectedCurrency2.value = newValue2!;
                           },
                           items: currencyList.map((currency) {
