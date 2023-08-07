@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 class CurrencyConverter {
   static RxString results = ''.obs;
   static RxString conversionRate = ''.obs;
-  static RxDouble exchangeRateUR = 330.37.obs;
-  static RxDouble exchangeRateUY = 7.16.obs;
-  static RxDouble exchangeRateYR = 44.18.obs;
+  static RxDouble exchangeRateUR = 319.11.obs;
+  static RxDouble exchangeRateUY = 7.19.obs;
+  static RxDouble exchangeRateYR = 44.37.obs;
   static RxDouble inputAmount = 0.0.obs;
   static RxDouble result = 0.0.obs;
 

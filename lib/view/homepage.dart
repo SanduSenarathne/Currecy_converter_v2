@@ -54,12 +54,10 @@ class HomePage extends StatelessWidget {
             ValueListenableBuilder<String>(
               valueListenable: selectedCurrency2,
               builder: (context, value, child) {
-                // Calculate the exchange rate using CurrencyConverter.exchangeRate()
                 String formattedExchangeRate = CurrencyConverter.exchangeRate(
                   selectedCurrency1.value,
                   selectedCurrency2.value,
                 );
-                //String formattedExchangeRate = exchangeRate;
                 return Text(
                   '$formattedExchangeRate ${selectedCurrency2.value}',
                   style: TextStyle(
@@ -97,8 +95,8 @@ class HomePage extends StatelessWidget {
                         controller2.clear();
                         CurrencyConverter.convertToCurencyText1(
                           value,
-                          selectedCurrency2.value,
                           selectedCurrency1.value,
+                          selectedCurrency2.value,
                         );
                         controller2.text = CurrencyConverter.results.value;
                       },
