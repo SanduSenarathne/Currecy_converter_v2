@@ -116,6 +116,9 @@ class HomePage extends StatelessWidget {
                           onChanged: (newValue1) {
                             controller1.clear();
                             controller2.clear();
+                            /*CurrencyConverter.exchangeRate(
+                                selectedCurrency1.value,
+                                selectedCurrency2.value);*/
                             selectedCurrency1.value = newValue1!;
                           },
                           items: currencyList.map((currency) {
@@ -184,6 +187,9 @@ class HomePage extends StatelessWidget {
                           onChanged: (newValue2) {
                             controller1.clear();
                             controller2.clear();
+                            /*CurrencyConverter.exchangeRate(
+                                selectedCurrency1.value,
+                                selectedCurrency2.value);*/
                             selectedCurrency2.value = newValue2!;
                           },
                           items: currencyList.map((currency) {

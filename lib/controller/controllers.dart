@@ -39,7 +39,7 @@ class CurrencyConverter {
     } else {
       result.value = inputAmount.value;
     }
-    results.value = result.toStringAsFixed(2);
+    results.value = result.toStringAsFixed(4);
   }
 
   static void convertToCurencyText2(
@@ -72,7 +72,7 @@ class CurrencyConverter {
     } else {
       result.value = inputAmount.value;
     }
-    results.value = result.toStringAsFixed(2);
+    results.value = result.toStringAsFixed(4);
   }
 
   static String exchangeRate(
